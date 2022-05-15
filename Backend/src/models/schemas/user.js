@@ -27,26 +27,27 @@ const userSchema = new mongoose.Schema({
   password: {//Usar bcryptjs en caso de que no haga log con google
     //Usar en la rutas para incriptar y desincrptar
     type: String,
-    min: 6,
-    max: 20,
+    min: 8,
+    max: 32,
   },
-  name: {
+  gender: {
     type: String,
     required: true,
+    enum: "Male" || "Female" ||"Other"
   },
-  description: {
+  dateOfBirth: {
+    type: Date,
+  },
+  profilePicture: {
+    type: String,
+  },
+  about: {
     type: String,
     max: 100,
-  },
-  image: {
-    type: String,
   },
   createdAt: {
     type: Date,
     default: () => Date.now(),
-  },
-  dateOfBirth: {
-    type: Date,
   },
   resgitrationCompleted:{
     type: Boolean,
