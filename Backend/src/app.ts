@@ -1,13 +1,13 @@
-var cors = require("cors");
-const express = require("express");
-const YAML = require("yamljs");
-const swaggerUi = require("swagger-ui-express");
-const swaggerSetup = YAML.load("./src/docs/swagger.yaml");
-const { NotFoundError, InvalidInputError } = require("./utils/errors");
-const http = require("http");
+import cors from "cors";
+import express from "express";
+import http from "http";
+import YAML from "yamljs";
+import swaggerUi from "swagger-ui-express"
 
-const userRoute = require("./routes/user.route");
+import { NotFoundError, InvalidInputError } from "./utils/errors"
+import UserRoute from "./routes/user.route"
 
+const swaggerSetup = YAML.load("./swagger.yaml");
 const app = express();
 app.use(express.json());
 
@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 //Swagger
 app.use("/doc-api", swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
-app.use("/user", userRoute);
+app.use("/user", UserRoute);
 
 app.use((err, req, res, next) => {
   console.log("error\n", err.message);
@@ -47,4 +47,4 @@ app.use((err, req, res, next) => {
   res.status(503).send("Oooops something went wrong, try again");
 });
 
-module.exports = server;
+export default server
